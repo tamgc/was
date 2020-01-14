@@ -25,8 +25,16 @@
   $row = mysql_fetch_array($result);
   //General unit stats
   echo('<table width="450px"><tr><td colspan="5" class="img">
-        <img src="./images/' . $row['Release'] .
-        '/' . $row['SetNumber'] . '.jpg" /></td></tr>
+        <img src="./images/');
+  //Check if image exists, if not, use default 'noimage.jpg'
+  if(file_exists('./images/' . $row['Release'] . '/' . $row['SetNumber']
+     . '.jpg'))
+  {
+    echo($row['Release'] . '/' . $row['SetNumber']);
+  } else {
+    echo('noimage');
+  }
+  echo('.jpg" /></td></tr>
         <tr><td colspan="4" class="inv">' . $row['Name'] . 
         '</td><td width="75px" rowspan="2" class="points ' .
         $faction['Alliance'] . '">' . $row['Points'] . 
