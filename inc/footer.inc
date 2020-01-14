@@ -6,3 +6,6 @@ Disclaimer: The Axis & Allies logo, pictures of the game, and pictures of the ga
 </div>
 </body>
 </html>
+<?php
+  mysqli_close($connect);
+?>

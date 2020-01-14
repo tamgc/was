@@ -4,25 +4,25 @@
 
   $UnitID = addslashes($_GET['ID']);
   //Query for general unit information
-  $result = mysql_query("SELECT * FROM Units INNER JOIN Releases 
+  $result = mysqli_query($connect,"SELECT * FROM Units INNER JOIN Releases 
             ON Units.Release = Releases.Release 
             WHERE UnitID = " . $UnitID);
   //Query for unit's attack information
-  $attackQuery = mysql_query("SELECT * FROM Unit_Attack,Attacks
+  $attackQuery = mysqli_query($connect,"SELECT * FROM Unit_Attack,Attacks
                  WHERE UnitID = " . $UnitID .
                  " AND Attack = AttackName ORDER BY Priority");
   //Query for unit's abilities
-  $abilityQuery = mysql_query('SELECT * FROM Abilities
+  $abilityQuery = mysqli_query($connect,'SELECT * FROM Abilities
                   WHERE AbilityName IN
                   (SELECT AbilityName FROM Unit_Abilities
                   WHERE UnitID = ' . $UnitID . ')');
   //Query for unit's faction to determine background color
-  $factionQuery = mysql_query('SELECT Alliance FROM Factions
+  $factionQuery = mysqli_query($connect,'SELECT Alliance FROM Factions
                   WHERE Faction = (SELECT Faction FROM Units
 		  WHERE UnitID = ' . $UnitID . ')');
-  $faction = mysql_fetch_array($factionQuery);
+  $faction = mysqli_fetch_array($factionQuery);
 
-  $row = mysql_fetch_array($result);
+  $row = mysqli_fetch_array($result);
   //General unit stats
   echo('<table width="450px"><tr><td colspan="5" class="img">
         <img src="./images/');
@@ -78,7 +78,7 @@
         <td class="small inv center" width="50px">2</td>
         <td class="small inv center" width="50px">3</td>
         <td class="alt3" /></tr>');
-  while($attack = mysql_fetch_array($attackQuery))
+  while($attack = mysqli_fetch_array($attackQuery))
   {
     //Check for Main Gunnery symbol, set the symbol name
     switch($attack['Attack'])
@@ -130,7 +130,7 @@
     echo('<tr><td class="alt3 small">Base ' . $row['Carrier'] . 
          ' Squadron(s)');
   }
-  while($ability = mysql_fetch_array($abilityQuery))
+  while($ability = mysqli_fetch_array($abilityQuery))
   {
     echo('<tr><td class="alt2 small">' . $ability['AbilityName'] .
          ' -</td></tr><tr><td class="alt3 ability">' . 

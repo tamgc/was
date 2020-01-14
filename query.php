@@ -32,10 +32,10 @@ if($_GET['release'])
 } else {
   $query = " LIKE '%" . addslashes($_GET['query']) . "%'";
 }
-$result = mysql_query("SELECT UnitID, Name, Points, Faction, Type, Subtype, 
+$result = mysqli_query($connect,"SELECT UnitID, Name, Points, Faction, Type, Subtype, 
 Year FROM Units WHERE " . $field . $query . " ORDER BY " . $sort);
 
-$numrows = mysql_num_rows($result);
+$numrows = mysqli_num_rows($result);
 
 if(!$result)
 {
@@ -68,7 +68,7 @@ echo('<table><tr><th><a class="th" href=".' . $curQuery .
 
     $i = 0;
     //Print results
-    while($row = mysql_fetch_array($result))
+    while($row = mysqli_fetch_array($result))
     {
       if($i % 2)
       {

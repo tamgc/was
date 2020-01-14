@@ -146,7 +146,7 @@ if(isset($_POST['search']))
 if(isset($_POST['search']) || $_GET['sort'])
 {
   //"WHERE 1" so query would work with "AND"s on any addition
-  $result = mysql_query("SELECT * FROM Units WHERE 1" . $_SESSION['query'] . 
+  $result = mysqli_query($connect,"SELECT * FROM Units WHERE 1" . $_SESSION['query'] . 
             " ORDER BY " . $sort);
 
   if(!$result)
@@ -155,7 +155,7 @@ if(isset($_POST['search']) || $_GET['sort'])
     exit();
   }
 
-$numrows = mysql_num_rows($result);
+$numrows = mysqli_num_rows($result);
 echo('<p class="first">' . $numrows . ' record(s) found.</p>');
 
 //Grab current query so it could be sorted
@@ -178,7 +178,7 @@ echo('<table><tr><th><a class="th" href=".' . $curQuery .
 
     $i = 0;
     //Print results
-    while($row = mysql_fetch_array($result))
+    while($row = mysqli_fetch_array($result))
     {
       if($i % 2)
       {
@@ -231,8 +231,8 @@ session_destroy();
 <td><select name="nation">
 <option value="">Any</option>
 <?php 
-  $result = mysql_query("SELECT * FROM Factions");
-  while($row = mysql_fetch_array($result))
+  $result = mysqli_query($connect,"SELECT * FROM Factions");
+  while($row = mysqli_fetch_array($result))
   {
     echo('<option value="' . $row['Faction'] . 
          '">' . $row['Faction'] . '</option>');
@@ -252,14 +252,14 @@ session_destroy();
 <td><select name="type">
 <option value="">Any</option>
 <?php 
-  $result = mysql_query("SELECT DISTINCT Type FROM Units ORDER BY Type");
-  while($row = mysql_fetch_array($result))
+  $result = mysqli_query($connect,"SELECT DISTINCT Type FROM Units ORDER BY Type");
+  while($row = mysqli_fetch_array($result))
   {
     echo('<optgroup label="' . $row['Type'] . '"><option value="' . 
          $row['Type'] . '">Any ' . $row['Type'] . '</option>');
-    $subresult = mysql_query('SELECT DISTINCT Subtype FROM Units WHERE Type = "'
+    $subresult = mysqli_query($connect,'SELECT DISTINCT Subtype FROM Units WHERE Type = "'
                              . $row['Type'] . '" ORDER BY Subtype');
-    while($subrow = mysql_fetch_array($subresult))
+    while($subrow = mysqli_fetch_array($subresult))
     {
       if($subrow['Subtype'])
       {
@@ -307,8 +307,8 @@ session_destroy();
 <td><select name="attack">
 <option value="">Any</option>
 <?php 
-  $result = mysql_query("SELECT AttackName FROM Attacks ORDER BY Priority");
-  while($row = mysql_fetch_array($result))
+  $result = mysqli_query($connect,"SELECT AttackName FROM Attacks ORDER BY Priority");
+  while($row = mysqli_fetch_array($result))
   {
     switch($row['AttackName'])
     {
@@ -387,8 +387,8 @@ session_destroy();
 <td><select name="ability[]" multiple size="5">
 <option selected="selected" value="">Any</option>
 <?php 
-  $result = mysql_query("SELECT DISTINCT AbilityName FROM Abilities");
-  while($row = mysql_fetch_array($result))
+  $result = mysqli_query($connect,"SELECT DISTINCT AbilityName FROM Abilities");
+  while($row = mysqli_fetch_array($result))
   {
     echo('<option value="' . $row['AbilityName'] . 
          '">' . $row['AbilityName'] . '</option> ');
@@ -406,8 +406,8 @@ session_destroy();
 <td><select name="faction">
 <option value="">Any</option>
 <?php 
-  $result = mysql_query("SELECT DISTINCT Alliance FROM Factions");
-  while($row = mysql_fetch_array($result))
+  $result = mysqli_query($connect,"SELECT DISTINCT Alliance FROM Factions");
+  while($row = mysqli_fetch_array($result))
   {
     echo('<option value="' . $row['Alliance'] . 
          '">' . $row['Alliance'] . '</option> ');
@@ -419,8 +419,8 @@ session_destroy();
 <td><select name="release">
 <option value="">Any</option>
 <?php 
-  $result = mysql_query("SELECT * FROM Releases ORDER BY Releases.Set");
-  while($row = mysql_fetch_array($result))
+  $result = mysqli_query($connect,"SELECT * FROM Releases ORDER BY Releases.Set");
+  while($row = mysqli_fetch_array($result))
   {
     echo('<option value="' . $row['Release'] . 
          '">' . $row['Release'] . '</option> ');
@@ -432,8 +432,8 @@ session_destroy();
 <td><select name="rarity">
 <option value="">Any</option>
 <?php 
-  $result = mysql_query("SELECT DISTINCT Rarity FROM Units");
-  while($row = mysql_fetch_array($result))
+  $result = mysqli_query($connect,"SELECT DISTINCT Rarity FROM Units");
+  while($row = mysqli_fetch_array($result))
   {
     echo('<option value="' . $row['Rarity'] . 
          '">' . $row['Rarity'] . '</option> ');

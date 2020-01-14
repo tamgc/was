@@ -11,8 +11,8 @@
   <p>Release: <br />
   <?php 
     include('./inc/connect.inc');
-    $result = mysql_query("SELECT * FROM Releases ORDER BY Releases.Set");
-    while($row = mysql_fetch_array($result))
+    $result = mysqli_query($connect,"SELECT * FROM Releases ORDER BY Releases.Set");
+    while($row = mysqli_fetch_array($result))
     {
       echo('<a href="./query.php?release=' . $row['Release'] . 
            '">' . $row['Release'] . '</a> ');
@@ -21,8 +21,8 @@
   </p>
   <p>Faction:
   <?php 
-    $result = mysql_query("SELECT DISTINCT Alliance FROM Factions");
-    while($row = mysql_fetch_array($result))
+    $result = mysqli_query($connect,"SELECT DISTINCT Alliance FROM Factions");
+    while($row = mysqli_fetch_array($result))
     {
       echo('<a href="./query.php?alliance=' . $row['Alliance'] . 
            '">' . $row['Alliance'] . '</a> ');
@@ -31,8 +31,8 @@
   </p>
   <p>Nation:<br />
   <?php 
-    $result = mysql_query("SELECT * FROM Factions");
-    while($row = mysql_fetch_array($result))
+    $result = mysqli_query($connect,"SELECT * FROM Factions");
+    while($row = mysqli_fetch_array($result))
     {
       echo('<a href="./query.php?faction=' . $row['Faction'] . 
            '"><img src="./images/faction/' . $row['Faction'] . 
