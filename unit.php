@@ -49,7 +49,7 @@
 	}
   echo('</span><span class="right">' . $row['Year'] . '</span>' .
        '</td></tr><tr><td class="small inv"> Speed - ');
-  if($row['Speed'])
+  if($row['Speed'] != NULL)
   {
     echo($row['Speed']);
   } else if($row['Type'] = 'Aircraft') {
