@@ -9,4 +9,11 @@ if(!$connect){
   echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
   exit;
 }
+//Change connection encoding to UTF-8
+if (!mysqli_set_charset($connect, "utf8")) {
+	    printf("Error loading character set utf8: %s\n", mysqli_error($connect));
+	        exit();
+} else {
+	    printf("Current character set: %s\n", mysqli_character_set_name($connect));
+}
 ?>
